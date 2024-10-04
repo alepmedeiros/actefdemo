@@ -1,0 +1,27 @@
+unit Unit4;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, ACBrTEFD, ACBrBase, ACBrPosPrinter;
+
+type
+  TDataModule4 = class(TDataModule)
+    ACBrPosPrinter1: TACBrPosPrinter;
+    ACBrTEFD1: TACBrTEFD;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DataModule4: TDataModule4;
+
+implementation
+
+{%CLASSGROUP 'FMX.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

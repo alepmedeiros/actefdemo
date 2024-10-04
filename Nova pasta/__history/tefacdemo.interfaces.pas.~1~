@@ -1,0 +1,21 @@
+unit tefacdemo.interfaces;
+
+interface
+
+type
+  IPosPrinter = interface
+    function Ativar: IPosPrinter;
+    function Desativar: IPosPrinter;
+    function Modelo(Value: Integer): IPosPrinter;
+    function PaginaDeCodigo(Vaue: Integer): IPosPrinter;
+    function Porta(Value: String): IPosPrinter;
+    function ColunasFonteNormal(Value: INteger): IPosPrinter;
+    function LinhasEntreCupons(Value: Integer): IPosPrinter;
+    function EspacoEntreLinhas(Value: INteger): IPosPrinter;
+    function Ativo: Boolean;
+    procedure Imprimir(Value: String);
+  end;
+
+implementation
+
+end.

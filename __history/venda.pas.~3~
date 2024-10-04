@@ -1,0 +1,69 @@
+unit venda;
+
+interface
+
+const
+  cPagamentos: array[0..6] of array [0..1] of String =
+     ( ('01','Dinheiro'),
+       ('02','Cheque'),
+       ('03','Cartão de Crédito'),
+       ('04','Cartão de Débito'),
+       ('05','Carteira Digital'),
+       ('06','Vale Refeição'),
+       ('99','Outros') );
+
+type
+  TStatusVenda = (stsLivre, stsIniciada, stsEmPagamento, stsCancelada, stsAguardandoTEF, stsOperacaoTEF, stsFinalizada);
+
+  TVenda = class
+  private
+    FDHInicio: TDateTime;
+    FValorInicial: Currency;
+    FPagamentos: Integer;
+    FNumOperacao: Integer;
+    FTotalAcrescimo: Currency;
+    FTotalDesconto: Currency;
+    FStatus: TStatusVenda;
+    function GetTotalVenda: Currency;
+
+  public
+    property NumOperacao: Integer read FNumOperacao write FNumOperacao;
+    property DHInicio: TDateTime read FDHInicio write FDHInicio;
+    property Status: TStatusVenda read FStatus write FStatus;
+
+    property ValorInicial: Currency read FValorInicial write FValorInicial;
+    property TotalDesconto: Currency read FTotalDesconto write FTotalDesconto;
+    property TotalAcrescimo: Currency read FTotalAcrescimo write FTotalAcrescimo;
+    property TotalVenda: Currency read GetTotalVenda;
+
+    property Pagamentos: Integer read FPagamentos write FPagamentos;
+  end;
+
+Function DescricaoTipoPagamento(const ATipoPagamento: String): String;
+
+implementation
+
+function DescricaoTipoPagamento(const ATipoPagamento: String): String;
+var
+  l, i: Integer;
+begin
+  Result := '';
+  l := Length(cPagamentos)-1;
+  For i := 0 to l do
+  begin
+    if ATipoPagamento = cPagamentos[i,0] then
+    begin
+      Result := cPagamentos[i,1];
+      Break;
+    end;
+  end;
+end;
+
+{ TVenda }
+
+function TVenda.GetTotalVenda: Currency;
+begin
+  Result := FValorInicial - FTotalDesconto + FTotalAcrescimo;
+end;
+
+end.

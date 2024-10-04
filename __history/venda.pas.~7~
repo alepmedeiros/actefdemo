@@ -1,0 +1,97 @@
+unit venda;
+
+interface
+
+const
+  cPagamentos: array[0..6] of array [0..1] of String =
+     ( ('01','Dinheiro'),
+       ('02','Cheque'),
+       ('03','Cartão de Crédito'),
+       ('04','Cartão de Débito'),
+       ('05','Carteira Digital'),
+       ('06','Vale Refeição'),
+       ('99','Outros') );
+
+type
+  TStatusVenda = (stsLivre, stsIniciada, stsEmPagamento, stsCancelada, stsAguardandoTEF, stsOperacaoTEF, stsFinalizada);
+
+  TPagamento = class
+  private
+    FAcrescimo: Double;
+    FCancelada: Boolean;
+    FConfirmada: Boolean;
+    FDesconto: Double;
+    FHora: TDateTime;
+    FRedeCNPJ: String;
+    FNSU: String;
+    FRede: String;
+    FSaque: Double;
+    FTipoPagamento: String;
+    FValorPago: Currency;
+
+  public
+    property TipoPagamento: String read FTipoPagamento write FTipoPagamento;
+    property ValorPago: Currency read FValorPago write FValorPago;
+    property Hora: TDateTime read FHora write FHora;
+    property NSU: String read FNSU write FNSU;
+    property Rede: String read FRede write FRede;
+    property RedeCNPJ: String read FRedeCNPJ write FRedeCNPJ;
+    property Acrescimo: Double read FAcrescimo write FAcrescimo;
+    property Desconto: Double read FDesconto write FDesconto;
+    property Saque: Double read FSaque write FSaque;
+    property Confirmada: Boolean read FConfirmada write FConfirmada;
+    property Cancelada: Boolean read FCancelada write FCancelada;
+  end;
+
+  TVenda = class
+  private
+    FDHInicio: TDateTime;
+    FValorInicial: Currency;
+    FPagamentos: TPagamento;
+    FNumOperacao: Integer;
+    FTotalAcrescimo: Currency;
+    FTotalDesconto: Currency;
+    FStatus: TStatusVenda;
+    function GetTotalVenda: Currency;
+
+  public
+    property NumOperacao: Integer read FNumOperacao write FNumOperacao;
+    property DHInicio: TDateTime read FDHInicio write FDHInicio;
+    property Status: TStatusVenda read FStatus write FStatus;
+
+    property ValorInicial: Currency read FValorInicial write FValorInicial;
+    property TotalDesconto: Currency read FTotalDesconto write FTotalDesconto;
+    property TotalAcrescimo: Currency read FTotalAcrescimo write FTotalAcrescimo;
+    property TotalVenda: Currency read GetTotalVenda;
+
+    property Pagamentos: TPagamento read FPagamentos write FPagamentos;
+  end;
+
+Function DescricaoTipoPagamento(const ATipoPagamento: String): String;
+
+implementation
+
+function DescricaoTipoPagamento(const ATipoPagamento: String): String;
+var
+  l, i: Integer;
+begin
+  Result := '';
+  l := Length(cPagamentos)-1;
+  For i := 0 to l do
+  begin
+    if ATipoPagamento = cPagamentos[i,0] then
+    begin
+      Result := cPagamentos[i,1];
+      Break;
+    end;
+  end;
+end;
+
+{ TVenda }
+
+function TVenda.GetTotalVenda: Currency;
+begin
+  Result := FValorInicial - FTotalDesconto + FTotalAcrescimo;
+end;
+
+end.

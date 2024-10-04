@@ -1,0 +1,34 @@
+unit Unit2;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.Edit, FMX.Objects;
+
+type
+  TForm2 = class(TForm)
+    Layout1: TLayout;
+    Layout2: TLayout;
+    Layout3: TLayout;
+    Button1: TButton;
+    Button2: TButton;
+    Layout4: TLayout;
+    Rectangle1: TRectangle;
+    Edit1: TEdit;
+    FlowLayout1: TFlowLayout;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+
+{$R *.fmx}
+
+end.

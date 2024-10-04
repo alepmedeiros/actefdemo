@@ -1,0 +1,33 @@
+unit Unit6;
+
+interface
+
+uses
+  Unit5;
+
+type
+  TExpandido<T> = class(TInterfacedObject, IExpandido<T>)
+  private
+    [weak]
+    FParent: T;
+
+    constructor Create(Parent: T);
+  public
+    class function New(Parent: T): IExpandido<T>;
+  end;
+
+implementation
+
+{ TExpandido<T> }
+
+constructor TExpandido<T>.Create(Parent: T);
+begin
+  FParent := Parent;
+end;
+
+class function TExpandido<T>.New(Parent: T): IExpandido<T>;
+begin
+  REsult := Self.Create(Parent);
+end;
+
+end.

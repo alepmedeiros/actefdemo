@@ -1,0 +1,46 @@
+unit tefacdemo.interfaces;
+
+interface
+
+type
+  IPosPrinter = interface
+    function Ativar: IPosPrinter;
+    function Desativar: IPosPrinter;
+    function Modelo(Value: Integer): IPosPrinter;
+    function PaginaCodificacao(Value: Integer): IPosPrinter;
+    function Porta(Value: String): IPosPrinter;
+    function ColunasFonteNormal(Value: Integer): IPosPrinter;
+    function LinhasEntreCupons(Value: Integer): IPosPrinter;
+    function EspacoEntreLinhas(Value: Integer): IPosPrinter;
+  end;
+
+  ITef = interface
+    function Inicializar(Value: Integer): ITef;
+    function ArqLOG(Value: string): ITef;
+    function TrocoMaximo(Value: Double): ITef;
+    function ImprimirViaClienteReduzida(Value: Boolean): ITef;
+    function MultiplosCartoes(Value: Boolean): ITef;
+    function ConfirmarAntesDosComprovantes(Value: Boolean): ITef;
+    function NumeroMaximoCartoes(Value: Integer): ITef;
+    function SuportaDesconto(Value: Boolean): ITef;
+    function SuportaSaque(Value: Boolean): ITef;
+    function SoftwareHouse(value: String): ITef;
+    function RegistroCertificacao(Value: String): ITef;
+    function NomeAplicacao(Value: String): ITef;
+    function VersaoAplicacao(Value: String): ITef;
+    function SuportaReajusteValor(Value: Boolean): ITef;
+    function SuportaNSUEstendido(Value: Boolean): ITef;
+    function SuportaViasDiferenciadas(Value: Boolean): ITef;
+    function ExibicaoQrCode(Value: Integer): ITef;
+    function AutoEfetuarPagamento(Value: Boolean): ITef;
+    function AutoFinalizarCupom(Value: Boolean): ITef;
+  end;
+
+  IFactoryComponentes = interface
+    function PosPrinter: IPosPrinter;
+    function Tef: ITef;
+  end;
+
+implementation
+
+end.
